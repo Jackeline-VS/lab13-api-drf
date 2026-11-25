@@ -5,6 +5,8 @@ from rest_framework.response import Response
 from .models import Categoria, Producto
 from .serializers import CategoriaSerializer, ProductoSerializer
 
+from .filters import ProductoFilter
+from .pagination import PaginacionProductos
 
 class CategoriaViewSet(viewsets.ModelViewSet):
     """
@@ -13,6 +15,9 @@ class CategoriaViewSet(viewsets.ModelViewSet):
     """
     queryset = Categoria.objects.all()
     serializer_class = CategoriaSerializer
+   
+    search_fields = ['nombre', 'descripcion']
+    ordering_fields = ['nombre', 'creado']
 
     # Endpoint custom: /api/categorias/{id}/productos/
     @action(detail=True, methods=['get'])
@@ -32,6 +37,14 @@ class ProductoViewSet(viewsets.ModelViewSet):
     queryset = Producto.objects.select_related('categoria').all()
     serializer_class = ProductoSerializer
 
+    # Filtros backend (configurados globalmente en settings)
+    filterset_class = ProductoFilter
+    search_fields = ['nombre', 'descripcion', 'categoria__nombre']
+    ordering_fields = ['precio', 'stock', 'creado', 'nombre']
+    ordering = ['-creado']
+    # Sobrescribe la paginación global solo aquí (permite ?page_size)
+    pagination_class = PaginacionProductos
+    
     # Endpoint custom de colección: /api/productos/activos/
     @action(detail=False, methods=['get'])
     def activos(self, request):
