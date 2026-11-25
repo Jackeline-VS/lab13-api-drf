@@ -1,0 +1,197 @@
+[
+    {
+        "model": "productos.categoria",
+        "pk": 1,
+        "fields": {
+            "nombre": "Laptops",
+            "descripcion": "Computadoras portátiles",
+            "creado": "2026-11-01T10:00:00Z"
+        }
+    },
+    {
+        "model": "productos.categoria",
+        "pk": 2,
+        "fields": {
+            "nombre": "Celulares",
+            "descripcion": "Smartphones y teléfonos",
+            "creado": "2026-11-01T10:05:00Z"
+        }
+    },
+    {
+        "model": "productos.categoria",
+        "pk": 3,
+        "fields": {
+            "nombre": "Accesorios",
+            "descripcion": "Periféricos y complementos",
+            "creado": "2026-11-01T10:10:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 1,
+        "fields": {
+            "nombre": "Laptop Lenovo IdeaPad 5",
+            "descripcion": "Ryzen 7, 16GB RAM, 512GB SSD",
+            "precio": "3299.00",
+            "stock": 8,
+            "estado": "activo",
+            "categoria": 1,
+            "creado": "2026-11-02T09:00:00Z",
+            "actualizado": "2026-11-02T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 2,
+        "fields": {
+            "nombre": "Laptop HP Pavilion 15",
+            "descripcion": "Core i5, 8GB RAM, 512GB SSD",
+            "precio": "2799.00",
+            "stock": 5,
+            "estado": "activo",
+            "categoria": 1,
+            "creado": "2026-11-03T09:00:00Z",
+            "actualizado": "2026-11-03T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 3,
+        "fields": {
+            "nombre": "Laptop ASUS TUF Gaming",
+            "descripcion": "Core i7, RTX 4050, 16GB RAM",
+            "precio": "4599.00",
+            "stock": 3,
+            "estado": "activo",
+            "categoria": 1,
+            "creado": "2026-11-04T09:00:00Z",
+            "actualizado": "2026-11-04T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 4,
+        "fields": {
+            "nombre": "Laptop Acer Aspire 3",
+            "descripcion": "Core i3, 8GB RAM (descontinuado)",
+            "precio": "1899.00",
+            "stock": 0,
+            "estado": "inactivo",
+            "categoria": 1,
+            "creado": "2026-11-05T09:00:00Z",
+            "actualizado": "2026-11-05T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 5,
+        "fields": {
+            "nombre": "Samsung Galaxy A55",
+            "descripcion": "256GB, 8GB RAM",
+            "precio": "1599.00",
+            "stock": 12,
+            "estado": "activo",
+            "categoria": 2,
+            "creado": "2026-11-06T09:00:00Z",
+            "actualizado": "2026-11-06T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 6,
+        "fields": {
+            "nombre": "iPhone 15",
+            "descripcion": "128GB, negro",
+            "precio": "3899.00",
+            "stock": 4,
+            "estado": "activo",
+            "categoria": 2,
+            "creado": "2026-11-07T09:00:00Z",
+            "actualizado": "2026-11-07T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 7,
+        "fields": {
+            "nombre": "Xiaomi Redmi Note 13",
+            "descripcion": "256GB, 8GB RAM",
+            "precio": "999.00",
+            "stock": 20,
+            "estado": "activo",
+            "categoria": 2,
+            "creado": "2026-11-08T09:00:00Z",
+            "actualizado": "2026-11-08T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 8,
+        "fields": {
+            "nombre": "Motorola Moto G24",
+            "descripcion": "128GB (agotado)",
+            "precio": "599.00",
+            "stock": 0,
+            "estado": "inactivo",
+            "categoria": 2,
+            "creado": "2026-11-09T09:00:00Z",
+            "actualizado": "2026-11-09T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 9,
+        "fields": {
+            "nombre": "Mouse Logitech M185",
+            "descripcion": "Inalámbrico USB",
+            "precio": "49.90",
+            "stock": 35,
+            "estado": "activo",
+            "categoria": 3,
+            "creado": "2026-11-10T09:00:00Z",
+            "actualizado": "2026-11-10T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 10,
+        "fields": {
+            "nombre": "Teclado Redragon Kumara",
+            "descripcion": "Mecánico, switches rojos",
+            "precio": "159.00",
+            "stock": 15,
+            "estado": "activo",
+            "categoria": 3,
+            "creado": "2026-11-11T09:00:00Z",
+            "actualizado": "2026-11-11T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 11,
+        "fields": {
+            "nombre": "Audífonos JBL Tune 520BT",
+            "descripcion": "Bluetooth, 57h batería",
+            "precio": "229.00",
+            "stock": 10,
+            "estado": "activo",
+            "categoria": 3,
+            "creado": "2026-11-12T09:00:00Z",
+            "actualizado": "2026-11-12T09:00:00Z"
+        }
+    },
+    {
+        "model": "productos.producto",
+        "pk": 12,
+        "fields": {
+            "nombre": "Cargador Anker 65W",
+            "descripcion": "USB-C GaN (descontinuado)",
+            "precio": "189.00",
+            "stock": 0,
+            "estado": "inactivo",
+            "categoria": 3,
+            "creado": "2026-11-13T09:00:00Z",
+            "actualizado": "2026-11-13T09:00:00Z"
+        }
+    }
+]
