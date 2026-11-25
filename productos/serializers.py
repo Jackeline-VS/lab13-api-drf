@@ -15,7 +15,7 @@ class CategoriaSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('id', 'url', 'nombre', 'descripcion', 'total_productos', 'creado')
         read_only_fields = ('creado',)
 
-    def get_total_productos(self, obj):
+    def get_total_productos(self, obj) -> int:
         return obj.productos.count()
 
 
@@ -41,10 +41,10 @@ class ProductoSerializer(serializers.HyperlinkedModelSerializer):
         )
         read_only_fields = ('creado', 'actualizado')
 
-    def get_precio_con_igv(self, obj):
+    def get_precio_con_igv(self, obj) -> Decimal:
         return round(obj.precio * Decimal('1.18'), 2)
 
-    def get_links(self, obj):
+    def get_links(self, obj) -> dict:
         """HATEOAS básico: enlaces de navegación para el cliente."""
         request = self.context.get('request')
         return {

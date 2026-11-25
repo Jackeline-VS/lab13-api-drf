@@ -1,0 +1,704 @@
+openapi: 3.0.3
+info:
+  title: API Catálogo de Productos - Lab 13
+  version: 1.0.0
+  description: 'API RESTful con DRF: serialización, ViewSets, filtros, paginación,
+    throttling y CORS.'
+paths:
+  /api/categorias/:
+    get:
+      operationId: categorias_list
+      description: |-
+        CRUD de categorías.
+        GET→list/retrieve · POST→create · PUT/PATCH→update · DELETE→destroy
+      parameters:
+      - name: ordering
+        required: false
+        in: query
+        description: Qué campo usar para ordenar los resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Un número de página dentro del conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: search
+        required: false
+        in: query
+        description: Un término de búsqueda.
+        schema:
+          type: string
+      tags:
+      - categorias
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedCategoriaList'
+          description: ''
+    post:
+      operationId: categorias_create
+      description: |-
+        CRUD de categorías.
+        GET→list/retrieve · POST→create · PUT/PATCH→update · DELETE→destroy
+      tags:
+      - categorias
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+  /api/categorias/{id}/:
+    get:
+      operationId: categorias_retrieve
+      description: |-
+        CRUD de categorías.
+        GET→list/retrieve · POST→create · PUT/PATCH→update · DELETE→destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - categorias
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    put:
+      operationId: categorias_update
+      description: |-
+        CRUD de categorías.
+        GET→list/retrieve · POST→create · PUT/PATCH→update · DELETE→destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - categorias
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Categoria'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    patch:
+      operationId: categorias_partial_update
+      description: |-
+        CRUD de categorías.
+        GET→list/retrieve · POST→create · PUT/PATCH→update · DELETE→destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - categorias
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedCategoria'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+    delete:
+      operationId: categorias_destroy
+      description: |-
+        CRUD de categorías.
+        GET→list/retrieve · POST→create · PUT/PATCH→update · DELETE→destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - categorias
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/categorias/{id}/productos/:
+    get:
+      operationId: categorias_productos_retrieve
+      description: |-
+        CRUD de categorías.
+        GET→list/retrieve · POST→create · PUT/PATCH→update · DELETE→destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este categoria.
+        required: true
+      tags:
+      - categorias
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Categoria'
+          description: ''
+  /api/productos/:
+    get:
+      operationId: productos_list
+      description: CRUD de productos. Permisos, paginación y throttling vienen de
+        settings (globales).
+      parameters:
+      - in: query
+        name: categoria
+        schema:
+          type: integer
+      - in: query
+        name: categoria_nombre
+        schema:
+          type: string
+      - in: query
+        name: estado
+        schema:
+          type: string
+          enum:
+          - activo
+          - inactivo
+        description: |-
+          * `activo` - Activo
+          * `inactivo` - Inactivo
+      - name: ordering
+        required: false
+        in: query
+        description: Qué campo usar para ordenar los resultados.
+        schema:
+          type: string
+      - name: page
+        required: false
+        in: query
+        description: Un número de página dentro del conjunto de resultados paginado.
+        schema:
+          type: integer
+      - name: page_size
+        required: false
+        in: query
+        description: Número de resultados a devolver por página.
+        schema:
+          type: integer
+      - in: query
+        name: precio_max
+        schema:
+          type: number
+      - in: query
+        name: precio_min
+        schema:
+          type: number
+      - name: search
+        required: false
+        in: query
+        description: Un término de búsqueda.
+        schema:
+          type: string
+      tags:
+      - productos
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedProductoList'
+          description: ''
+    post:
+      operationId: productos_create
+      description: CRUD de productos. Permisos, paginación y throttling vienen de
+        settings (globales).
+      tags:
+      - productos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Producto'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+  /api/productos/{id}/:
+    get:
+      operationId: productos_retrieve
+      description: CRUD de productos. Permisos, paginación y throttling vienen de
+        settings (globales).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este producto.
+        required: true
+      tags:
+      - productos
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+    put:
+      operationId: productos_update
+      description: CRUD de productos. Permisos, paginación y throttling vienen de
+        settings (globales).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este producto.
+        required: true
+      tags:
+      - productos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Producto'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+    patch:
+      operationId: productos_partial_update
+      description: CRUD de productos. Permisos, paginación y throttling vienen de
+        settings (globales).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este producto.
+        required: true
+      tags:
+      - productos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedProducto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedProducto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedProducto'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+    delete:
+      operationId: productos_destroy
+      description: CRUD de productos. Permisos, paginación y throttling vienen de
+        settings (globales).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este producto.
+        required: true
+      tags:
+      - productos
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/productos/{id}/desactivar/:
+    post:
+      operationId: productos_desactivar_create
+      description: CRUD de productos. Permisos, paginación y throttling vienen de
+        settings (globales).
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: integer
+        description: Un valor de entero único que identifique este producto.
+        required: true
+      tags:
+      - productos
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Producto'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Producto'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+  /api/productos/activos/:
+    get:
+      operationId: productos_activos_retrieve
+      description: CRUD de productos. Permisos, paginación y throttling vienen de
+        settings (globales).
+      tags:
+      - productos
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Producto'
+          description: ''
+components:
+  schemas:
+    Categoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        nombre:
+          type: string
+          maxLength: 100
+        descripcion:
+          type: string
+        total_productos:
+          type: integer
+          readOnly: true
+        creado:
+          type: string
+          format: date-time
+          readOnly: true
+      required:
+      - creado
+      - id
+      - nombre
+      - total_productos
+      - url
+    EstadoEnum:
+      enum:
+      - activo
+      - inactivo
+      type: string
+      description: |-
+        * `activo` - Activo
+        * `inactivo` - Inactivo
+    PaginatedCategoriaList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Categoria'
+    PaginatedProductoList:
+      type: object
+      required:
+      - count
+      - results
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Producto'
+    PatchedCategoria:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        nombre:
+          type: string
+          maxLength: 100
+        descripcion:
+          type: string
+        total_productos:
+          type: integer
+          readOnly: true
+        creado:
+          type: string
+          format: date-time
+          readOnly: true
+    PatchedProducto:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        nombre:
+          type: string
+          maxLength: 150
+        descripcion:
+          type: string
+        precio:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        precio_con_igv:
+          type: number
+          format: double
+          readOnly: true
+        stock:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        estado:
+          $ref: '#/components/schemas/EstadoEnum'
+        categoria:
+          type: string
+          format: uri
+        categoria_nombre:
+          type: string
+          readOnly: true
+        creado:
+          type: string
+          format: date-time
+          readOnly: true
+        actualizado:
+          type: string
+          format: date-time
+          readOnly: true
+        links:
+          type: object
+          additionalProperties: {}
+          description: 'HATEOAS básico: enlaces de navegación para el cliente.'
+          readOnly: true
+    Producto:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        url:
+          type: string
+          format: uri
+          readOnly: true
+        nombre:
+          type: string
+          maxLength: 150
+        descripcion:
+          type: string
+        precio:
+          type: string
+          format: decimal
+          pattern: ^-?\d{0,8}(?:\.\d{0,2})?$
+        precio_con_igv:
+          type: number
+          format: double
+          readOnly: true
+        stock:
+          type: integer
+          maximum: 9223372036854775807
+          minimum: 0
+          format: int64
+        estado:
+          $ref: '#/components/schemas/EstadoEnum'
+        categoria:
+          type: string
+          format: uri
+        categoria_nombre:
+          type: string
+          readOnly: true
+        creado:
+          type: string
+          format: date-time
+          readOnly: true
+        actualizado:
+          type: string
+          format: date-time
+          readOnly: true
+        links:
+          type: object
+          additionalProperties: {}
+          description: 'HATEOAS básico: enlaces de navegación para el cliente.'
+          readOnly: true
+      required:
+      - actualizado
+      - categoria
+      - categoria_nombre
+      - creado
+      - id
+      - links
+      - nombre
+      - precio
+      - precio_con_igv
+      - url
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: sessionid
